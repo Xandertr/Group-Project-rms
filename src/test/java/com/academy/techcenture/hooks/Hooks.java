@@ -19,20 +19,20 @@ public class Hooks {
         Driver.getDriver();
     }
 
-    @After
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            String screenshotName = scenario.getName().replaceAll(" ", "_");
-            String screenshotPath = "target/screenshots" + screenshotName + ".png";
-            try {
-                byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", "Screenshot");
-                FileUtils.copyFile(((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE),
-                        new File(screenshotPath));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Driver.quitDriver();
-    }
+//    @After
+//    public void tearDown(Scenario scenario) {
+//        if (scenario.isFailed()) {
+//            String screenshotName = scenario.getName().replaceAll(" ", "_");
+//            String screenshotPath = "target/screenshots" + screenshotName + ".png";
+//            try {
+//                byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+//                scenario.attach(screenshot, "image/png", "Screenshot");
+//                FileUtils.copyFile(((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE),
+//                        new File(screenshotPath));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        Driver.quitDriver();
+//    }
 }

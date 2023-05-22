@@ -31,6 +31,9 @@ public class HomePage {
     @FindBy(xpath = "//div[@id='content']/div/div/h4")
     protected WebElement superUserHeader;
 
+    @FindBy(xpath = "//div[@id='content']/div[3]/div/a[1]")
+    protected WebElement findPatientRecord;
+
     public void verifyHomePage() {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -49,5 +52,9 @@ public class HomePage {
     }
     public void clickRegisterApatient(){
         registerPatientBtn.click();
+    }
+
+    public void clickFindPatientRecord(){
+        findPatientRecord.click();
     }
 }
