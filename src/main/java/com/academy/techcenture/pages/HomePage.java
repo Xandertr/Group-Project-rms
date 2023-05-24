@@ -21,7 +21,6 @@ public class HomePage {
         PageFactory.initElements(this.driver, this);
     }
 
-
     @FindBy(xpath = "(//div[@id='content']/div/div/a)[4]")
     protected WebElement registerPatientBtn;
 

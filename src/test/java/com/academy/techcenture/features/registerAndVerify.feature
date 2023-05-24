@@ -38,5 +38,5 @@ Feature:Register Feature And Verify Patient Details
 
 
     Examples:
-      | given_name | family_name     | gender     | estimate_Age_year | estimate_months | address           | city                    | state                 | country                | postCode               | phone_number                 | relationship_type                     | relative_person_name     |
-      |Bob         |Monroe         |Male        |24                 |4                |145                |Fairfax                  |Oregon                 |Usa                     |221                     |571                           |Parent                                 |Bob scarlet               |
+      | given_name | family_name     | gender     | estimate_Age_year | estimate_months | address                           | city                    | state                 | country                | postCode               | phone_number                 | relationship_type                     | relative_person_name     |
+      |Alex        |Rodrigez         |Male        |45              |9                |145 Washingtonian street              |Fairfax                  |Oregon                 |Usa                     |221                     |5711231212                           |Parent                                 |Bob scarlet               |

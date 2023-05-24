@@ -1,5 +1,6 @@
 package com.academy.techcenture.pages;
 
+import com.academy.techcenture.config.ConfigReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +19,7 @@ public class PatientDetailsPage {
 
     private WebDriverWait wait;
 
-    @FindBy(xpath = "//div[@class='float-sm-right']/span")
+    @FindBy(xpath = "//em[text()='Patient ID']/following-sibling::span")
     protected WebElement patientId;
     @FindBy(xpath = "//i[@class='icon-home small']")
     protected WebElement homePageBtn;
@@ -38,7 +39,7 @@ public class PatientDetailsPage {
     public PatientDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
-        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(5));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
     }
 
 
@@ -69,23 +70,21 @@ public class PatientDetailsPage {
         return result;
     }
 
-    public String randomNote() {
-        return "Patient info succesfully generated";
-    }
 
     public void enterInfoToStickyNote() {
         stickyNoteBtn.click();
-        stickNoteInput.sendKeys(randomNote());
+        String randomNote="Patient info successfully generated";
+        stickNoteInput.sendKeys(randomNote);
         stickNoteSubmitbtn.click();
+        ConfigReader.setProperty("note",randomNote);
+    }
+
+    public void verifyStickyNote(){
+        Assert.assertEquals("Notes do not match",ConfigReader.getProperty("note"),getStickyNoteText());
     }
 
     public String getStickyNoteText() {
         return stickyNoteDetails.getText();
-    }
-
-    public String getPatientId(){
-        wait.until(ExpectedConditions.visibilityOf(patientId));
-        return patientId.getText().trim();
     }
 
     public void verifyPatientDetails() {
@@ -106,5 +105,18 @@ public class PatientDetailsPage {
         }
         homePageBtn.click();
 
+    }
+    public void verifyPatientDetailHeader(){
+        Assert.assertEquals("Given names do not match",ConfigReader.getProperty("givenName"),verifyPatientDetailsGivenName());
+        Assert.assertEquals("Family names do not match",ConfigReader.getProperty("familyName"),verifyPatientDetailsFamilyName());
+        Assert.assertEquals("Genders do not match",ConfigReader.getProperty("gender"),verifyPatientDetailGender());
+        Assert.assertEquals("Family names do not match",ConfigReader.getProperty("estimateAge"),verifyPatientDetailsAgeYear());
+    }
+
+
+    public void getPatientId(){
+        wait.until(ExpectedConditions.visibilityOf(patientId));
+        String patientIdText = patientId.getText();
+        ConfigReader.setProperty("patientID",patientIdText);
     }
 }

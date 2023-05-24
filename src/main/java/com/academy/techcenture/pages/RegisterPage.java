@@ -1,5 +1,5 @@
 package com.academy.techcenture.pages;
-
+import com.academy.techcenture.config.ConfigReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,17 +9,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
 public class RegisterPage {
-
-    public static HashMap<String,String> data = new HashMap<>();
-
-
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -85,10 +77,15 @@ public class RegisterPage {
 
     public void fillOutGivenName(String givenName) {
         givenNameInput.sendKeys(givenName);
+        ConfigReader.setProperty("givenName", givenName);
+
+
     }
 
     public void fillOutFamilyName(String familyName) {
+        ConfigReader.setProperty("familyName", familyName);
         familyNameInput.sendKeys(familyName);
+
     }
 
     public void fillOutGenderInfo(String gender) {
@@ -97,42 +94,52 @@ public class RegisterPage {
         } else {
             genderFemale.click();
         }
+        ConfigReader.setProperty("gender", gender);
     }
 
     public void fillOutEstimateAge(String estimateAge) {
         birthYearsInput.sendKeys(estimateAge);
+        ConfigReader.setProperty("estimateAge", estimateAge);
     }
 
     public void fillOutEstimateMonths(String estimateMonths) {
         birthMonthInput.sendKeys(estimateMonths);
+        ConfigReader.setProperty("estimateMonths", estimateMonths);
     }
 
-    public void fillAdress(String adress) {
-        addressInput.sendKeys(adress);
+    public void fillAddress(String address) {
+        addressInput.sendKeys(address);
+        ConfigReader.setProperty("address", address);
     }
 
     public void fillCityInfo(String city) {
         cityInput.sendKeys(city);
+        ConfigReader.setProperty("city", city);
     }
 
     public void fillCountryInfo(String country) {
         countyInput.sendKeys(country);
+        ConfigReader.setProperty("country", country);
     }
 
     public void fillStateInfo(String state) {
         stateInput.sendKeys(state);
+        ConfigReader.setProperty("state", state);
     }
 
     public void fillPostCodeInfo(String postCode) {
         postalCodeInput.sendKeys(postCode);
+        ConfigReader.setProperty("postCode", postCode);
     }
 
     public void fillPatientRelativeInfo(String personName) {
         personNameInput.sendKeys(personName);
+        ConfigReader.setProperty("personName", personName);
     }
 
     public void fillOutPhoneNumber(String phoneNumber) {
         patientNumberInput.sendKeys(phoneNumber);
+        ConfigReader.setProperty("phoneNumber", phoneNumber);
     }
 
     public void selectPatientRelationship(String relationship_type) {
@@ -152,9 +159,10 @@ public class RegisterPage {
         int indexOfComma = result.indexOf(",");
         String givenName = result.substring(indexOfSemiColon + 1, indexOfComma);
         String endresultGivenName = givenName.trim();
-        data.put("givenName", endresultGivenName);
+
 
         return endresultGivenName;
+
     }
 
 
@@ -166,6 +174,8 @@ public class RegisterPage {
         String endresultFamilyName = givenName.trim();
 
         return endresultFamilyName;
+
+
     }
 
     public String getGender() {
@@ -174,8 +184,8 @@ public class RegisterPage {
         int indexOfSemiColon = genderText.indexOf(":");
         String gender = genderText.substring(indexOfSemiColon + 1);
         String trimmedGender = gender.trim();
-        return trimmedGender;
 
+        return trimmedGender;
     }
 
     public String getAgeYear() {
@@ -184,7 +194,9 @@ public class RegisterPage {
         String birthYearElementText = birthYearElement.getText();
         int indefOfSemiColon = birthYearElementText.indexOf(":");
         int indexOfY = birthYearElementText.indexOf("y");
-        return birthYearElementText.substring(indefOfSemiColon + 2, indexOfY - 1);
+        String resultAge = birthYearElementText.substring(indefOfSemiColon + 2, indexOfY - 1);
+
+        return resultAge;
     }
 
     public String getMonth() {
@@ -194,7 +206,10 @@ public class RegisterPage {
         int indexOfComma = birthMonthText.indexOf(",");
         int indexOfmonth = birthMonthText.indexOf("m");
         String result = birthMonthText.substring(indexOfComma + 2, indexOfmonth - 1).trim();
+
+
         return result;
+
     }
 
     public String getAddressName() {
@@ -205,7 +220,7 @@ public class RegisterPage {
 
         String result = addressText.substring(indexOfSemiColon + 2, indexOfComma);
 
-        return result;
+       return result;
 
     }
 
@@ -215,9 +230,9 @@ public class RegisterPage {
         int indexOfComma = cityText.indexOf(",");
         String citySub = cityText.substring(indexOfComma + 1);
         int indexOFcitySubComma = citySub.indexOf(",");
-        String result = citySub.substring(1, indexOFcitySubComma);
+        String result = citySub.substring(1, indexOFcitySubComma).trim();
 
-        return result.trim();
+       return result;
     }
 
     public String getStateName() {
@@ -230,8 +245,7 @@ public class RegisterPage {
         int thirdIndexOfComma = trimmedSecondStateText.indexOf(",");
         String result = trimmedSecondStateText.substring(0, thirdIndexOfComma).trim();
 
-
-        return result;
+       return result;
     }
 
     public String getCountryName() {
@@ -245,6 +259,7 @@ public class RegisterPage {
         String afterStateText = trimmedSecondCountryText.substring(thirdIndexOfComma + 1);
         int indexOfLastComma = afterStateText.indexOf(",");
         String result = afterStateText.substring(0, indexOfLastComma).trim();
+
 
         return result;
     }
@@ -268,5 +283,16 @@ public class RegisterPage {
         Thread.sleep(5000);
     }
 
-
+    public void verifyConfirmPage(){
+       Assert.assertEquals("Given names do not match",ConfigReader.getProperty("givenName"),getGivenName());
+       Assert.assertEquals("Family names do not match",ConfigReader.getProperty("familyName"),getFamilyName());
+       Assert.assertEquals("Genders do not match",ConfigReader.getProperty("gender"),getGender());
+       Assert.assertEquals("Estimate year Age do not matched!",ConfigReader.getProperty("estimateAge"),getAgeYear());
+       Assert.assertEquals("Estimate month Age do not matched!",ConfigReader.getProperty("estimateMonths"),getMonth());
+       Assert.assertEquals("Address do not matched!",ConfigReader.getProperty("address"),getAddressName());
+       Assert.assertEquals("City do not matched!",ConfigReader.getProperty("city"),getCityName());
+       Assert.assertEquals("Country do not matched!",ConfigReader.getProperty("country"), getCountryName());
+       Assert.assertEquals("State do not matched!",ConfigReader.getProperty("state"), getStateName());
+       Assert.assertEquals("Postal code do not matched!",ConfigReader.getProperty("postCode"),getPostalcode());
+    }
 }
