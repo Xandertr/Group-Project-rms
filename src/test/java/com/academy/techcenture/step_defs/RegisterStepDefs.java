@@ -127,6 +127,7 @@ public class RegisterStepDefs {
     @When("user is on the patient detail page user should verify all personal information is correct again")
     public void userIsOnThePatientDetailPageUserShouldVerifyAllPersonalInformationIsCorrectAgain() {
         patientDetailsPage = new PatientDetailsPage(driver);
+//        patientDetailsPage.verifyPatientRegisterToolTip();
         patientDetailsPage.verifyPatientDetails();
     }
 

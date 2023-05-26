@@ -19,6 +19,8 @@ public class PatientDetailsPage {
 
     private WebDriverWait wait;
 
+//    @FindBy(xpath = "//div[@id='info-message']//p")
+//    protected WebElement patientToolTip;
     @FindBy(xpath = "//em[text()='Patient ID']/following-sibling::span")
     protected WebElement patientId;
     @FindBy(xpath = "//i[@class='icon-home small']")
@@ -73,14 +75,14 @@ public class PatientDetailsPage {
 
     public void enterInfoToStickyNote() {
         stickyNoteBtn.click();
-        String randomNote="Patient info successfully generated";
+        String randomNote = "Patient info successfully generated";
         stickNoteInput.sendKeys(randomNote);
         stickNoteSubmitbtn.click();
-        ConfigReader.setProperty("note",randomNote);
+        ConfigReader.setProperty("note", randomNote);
     }
 
-    public void verifyStickyNote(){
-        Assert.assertEquals("Notes do not match",ConfigReader.getProperty("note"),getStickyNoteText());
+    public void verifyStickyNote() {
+        Assert.assertEquals("Notes do not match", ConfigReader.getProperty("note"), getStickyNoteText());
     }
 
     public String getStickyNoteText() {
@@ -95,6 +97,7 @@ public class PatientDetailsPage {
         }
 
     }
+
     public void verifyGeneralActions() {
 
         Assert.assertTrue(generalActionsHeader.isDisplayed());
@@ -106,17 +109,23 @@ public class PatientDetailsPage {
         homePageBtn.click();
 
     }
-    public void verifyPatientDetailHeader(){
-        Assert.assertEquals("Given names do not match",ConfigReader.getProperty("givenName"),verifyPatientDetailsGivenName());
-        Assert.assertEquals("Family names do not match",ConfigReader.getProperty("familyName"),verifyPatientDetailsFamilyName());
-        Assert.assertEquals("Genders do not match",ConfigReader.getProperty("gender"),verifyPatientDetailGender());
-        Assert.assertEquals("Family names do not match",ConfigReader.getProperty("estimateAge"),verifyPatientDetailsAgeYear());
+
+    public void verifyPatientDetailHeader() {
+        Assert.assertEquals("Given names do not match", ConfigReader.getProperty("givenName"), verifyPatientDetailsGivenName());
+        Assert.assertEquals("Family names do not match", ConfigReader.getProperty("familyName"), verifyPatientDetailsFamilyName());
+        Assert.assertEquals("Genders do not match", ConfigReader.getProperty("gender"), verifyPatientDetailGender());
+        Assert.assertEquals("Family names do not match", ConfigReader.getProperty("estimateAge"), verifyPatientDetailsAgeYear());
     }
 
 
-    public void getPatientId(){
+    public void getPatientId() {
         wait.until(ExpectedConditions.visibilityOf(patientId));
         String patientIdText = patientId.getText();
-        ConfigReader.setProperty("patientID",patientIdText);
+        ConfigReader.setProperty("patientID", patientIdText);
     }
+
+//    public void verifyPatientRegisterToolTip() {
+//        wait.until(ExpectedConditions.visibilityOf(patientToolTip));
+//        Assert.assertTrue(patientToolTip.isDisplayed());
+//    }
 }

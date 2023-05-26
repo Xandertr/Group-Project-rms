@@ -1,4 +1,4 @@
-
+@regression
 Feature: Open Mrs Login Feature
 
   Background: Login Background Steps

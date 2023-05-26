@@ -35,8 +35,7 @@ Feature:Register Feature And Verify Patient Details
     And user can verify its own results
     Then user can go back to home page and logout
 
-
-
     Examples:
-      | given_name | family_name     | gender     | estimate_Age_year | estimate_months | address                           | city                    | state                 | country                | postCode               | phone_number                 | relationship_type                     | relative_person_name     |
-      |Alex        |Rodrigez         |Male        |45              |9                |145 Washingtonian street              |Fairfax                  |Oregon                 |Usa                     |221                     |5711231212                           |Parent                                 |Bob scarlet               |
+      | given_name | family_name | gender | estimate_Age_year | estimate_months | address                  | city       | state    | country | postCode | phone_number | relationship_type | relative_person_name |
+      | Alex       | Rodriguez   | Male   | 45                | 9               | 145 Washingtonian street | Fairfax    | Oregon   | Usa     | 221      | 5711231212   | Parent            | Bob scarlet          |
+      | Charles    | Xavier      | Female | 68                | 2               | 10400 railroad drive     | Alexandria | Oklahoma | Usa     | 22303    | 571571571    | Doctor            | Magneto xavier       |
